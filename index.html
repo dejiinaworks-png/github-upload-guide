@@ -400,6 +400,11 @@ git push -u origin main</div>
       <p><strong>完了！</strong>GitHub のリポジトリのページを再読み込みすると、自分のファイルが一覧に並んでいるはずです。これでネット上に保管できました。</p>
     </div>
 
+    <div class="note tip">
+      <span class="ico">🔍</span>
+      <p><strong>アップ後にチェック</strong>ファイル一覧に <code class="inline">.env.example</code>（見本）が<strong>あること</strong>、そして本物のキーが入った <code class="inline">.env</code> が<strong>無いこと</strong>を必ず確認しましょう。<code class="inline">.gitignore</code> が効いていれば、この状態になっています。もし <code class="inline">.env</code> が上がっていたら、すぐステップ2に戻って除外設定を見直してください。</p>
+    </div>
+
     <div class="ai">
       <h4>🤖 ぜんぶAIに任せてもOK</h4>
       <p>コマンドを1つずつ打つのが不安なら、Claude Code / Codex にこう頼めば、確認しながら進めてくれます。</p>
@@ -444,11 +449,24 @@ git clone https://github.com/〇〇/△△.git
 <span class="cmt"># できたフォルダの中に入る</span>
 cd △△</div>
 
-    <p>これで、GitHub にあるシステム一式が手元にそろいました。あとは Claude Code / Codex をこのフォルダで開けば、すぐ開発を始められます。</p>
+    <p>これで、GitHub にあるシステム一式が手元にそろいました。ただし、本物のキーが入った <code class="inline">.env</code> は上がっていないので、次の「.env を用意する」を必ず行ってください。</p>
+
+    <h3>クローンしたら .env を用意する</h3>
+    <p>クローンしたフォルダには見本の <code class="inline">.env.example</code> が入っています。これをコピーして <code class="inline">.env</code> という名前にし、本物の値を埋めます。</p>
+
+    <div class="code"><span class="label">ターミナル（クローンしたフォルダ内）</span><span class="cmt"># 見本をコピーして .env を作る</span>
+cp .env.example .env
+
+<span class="cmt"># あとは .env をエディタで開き、空欄に本物の値を入れる</span></div>
 
     <div class="note danger">
       <span class="ico">🔑</span>
-      <p><strong>.env を忘れずに</strong>秘密情報の <code class="inline">.env</code> は GitHub に上げていないので、クローンしただけでは入っていません。システムを作った本人から<strong>安全な方法で受け取り</strong>、フォルダの中に置いてください。これがないとシステムが動かないことがあります。</p>
+      <p><strong>本物の値はどこから？</strong>埋めるべき値（APIキー等）は GitHub には載っていません。システムを作った本人から<strong>安全な方法</strong>（パスワード管理アプリ、暗号化メモ等）で受け取って入力します。チャットやメールでの直書き共有は避けましょう。これが無いとシステムが動かないことがあります。</p>
+    </div>
+
+    <div class="note good">
+      <span class="ico">✅</span>
+      <p>準備ができたら、Claude Code / Codex をこのフォルダで開けば、すぐ開発を始められます。</p>
     </div>
 
     <div class="ai">
@@ -485,6 +503,10 @@ cd △△</div>
       <dd>GitHub上の最新版を手元に取り込むこと。push の逆。</dd>
       <dt>ブランチ（branch）</dt>
       <dd>本体（main）とは別の「作業用の枝」。慣れてきたら、ここで作業して安全に合流させます。</dd>
+      <dt>.env（ドットエンブ）</dt>
+      <dd>APIキーやパスワードなど、本物の秘密情報を書いておくファイル。<strong>GitHubには上げない。</strong></dd>
+      <dt>.env.example（見本）</dt>
+      <dd>「どんな項目が必要か」だけを書いた、値が空っぽの見本ファイル。<strong>これはGitHubに上げてOK。</strong>仲間はこれをコピーして自分の <code class="inline">.env</code> を作ります。</dd>
     </dl>
 
     <h3>よくあるトラブルと対処</h3>
@@ -493,6 +515,7 @@ cd △△</div>
       <tr><td>push でログイン/トークンを求められた</td><td>AIに「トークンの作り方を教えて」と聞く。GitHubの Settings → Developer settings から作成。</td></tr>
       <tr><td>秘密情報を間違えて上げてしまった</td><td>すぐにそのパスワード/キーを<strong>無効化して作り直す</strong>。消すだけでは履歴に残るので要注意。AIに相談を。</td></tr>
       <tr><td>「コンフリクト（衝突）」と出た</td><td>あわてず作業を止めて、AIに「コンフリクトが出ました。解決を手伝って」と頼む。</td></tr>
+      <tr><td>クローンしたのにシステムが動かない</td><td><code class="inline">.env</code> がまだ無い可能性大。<code class="inline">cp .env.example .env</code> で作り、本物の値を埋めたか確認する。</td></tr>
       <tr><td>どのコマンドか分からなくなった</td><td>Claude Code / Codex に「今やりたいこと」を日本語で伝えれば、正しいコマンドを出してくれる。</td></tr>
     </table>
 
