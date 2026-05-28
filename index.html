@@ -236,7 +236,7 @@
 
   <div class="note tip">
     <span class="ico">💡</span>
-    <p><strong>うれしいお知らせ</strong>このマニュアルのコマンド入力は、ほとんど <strong>Claude Code や Codex に「やって」とお願いするだけ</strong>でも進められます。ただし「何が起きているか」を理解しておくとトラブルに強くなるので、各ステップに説明をつけています。</p>
+    <p><strong>うれしいお知らせ</strong>このマニュアルのコマンド入力は、ほとんど <strong>Claude Code や Codex に「やって」とお願いするだけ</strong>でも進められます。ただし「何が起きているか」を理解しておくとトラブルに強くなるので、各ステップに説明をつけています。<br>なお、Claude Code / Codex をターミナルで使えている時点で、開発に必要な <strong>Git はすでに入っている</strong>ので、別途インストールする必要はありません。</p>
   </div>
 
   <!-- TOC -->
@@ -244,7 +244,6 @@
     <h2>この手順書のステップ</h2>
     <ol>
       <li><a href="#s1">GitHub のアカウントを作る</a></li>
-      <li><a href="#s2">Git をパソコンに入れる</a></li>
       <li><a href="#s3">アップする前に「秘密ファイル」を守る設定</a></li>
       <li><a href="#s4">GitHub に空っぽの保管場所を作る</a></li>
       <li><a href="#s5">システムを GitHub にアップする</a></li>
@@ -258,7 +257,7 @@
     <span class="ico">🧭</span>
     <p><strong>誰がどれをやる？</strong><br>
     ステップ <strong>1〜5</strong> は「システムを作った本人（アップロードする人）」が行います。<br>
-    ステップ <strong>6</strong> も同じ人。<strong>7</strong> は「あとから参加する仲間」全員が行います。</p>
+    ステップ <strong>6</strong> は「あとから参加する仲間」全員が行います。</p>
   </div>
 
   <hr class="div">
@@ -287,33 +286,9 @@
     </div>
   </section>
 
-  <!-- STEP 2 -->
-  <section class="step" id="s2">
-    <div class="step-head"><div class="step-num">2</div><h2>Git をパソコンに入れる</h2></div>
-    <p class="step-lead">Git（ギット）は、ファイルの変更履歴を記録する道具です。GitHub に上げるにはこの Git が必要です。</p>
-
-    <h3>Mac の場合</h3>
-    <p>多くの Mac には最初から入っています。確認するには「ターミナル」アプリを開いて、次を入力します。</p>
-    <div class="code"><span class="label">ターミナル</span>git --version</div>
-    <p><code class="inline">git version 2.xx.x</code> のように表示されればOKです。「インストールしますか？」と聞かれたら、案内に従って入れてください。</p>
-
-    <h3>Windows の場合</h3>
-    <ul class="check">
-      <li><strong>https://git-scm.com/download/win</strong> を開く</li>
-      <li>ダウンロードされたファイルを実行</li>
-      <li>設定は基本そのまま「Next」を押し続けてOK</li>
-    </ul>
-
-    <div class="ai">
-      <h4>🤖 Claude Code / Codex に頼むなら</h4>
-      <p>ターミナルの操作が不安なら、AIにこう聞けば確認・案内してくれます。</p>
-      <div class="say">「Gitが入っているか確認したいです。確認コマンドを教えて、入っていなければインストール方法も教えてください。」</div>
-    </div>
-  </section>
-
   <!-- STEP 3 -->
   <section class="step" id="s3">
-    <div class="step-head"><div class="step-num">3</div><h2>アップする前に「秘密ファイル」を守る設定</h2></div>
+    <div class="step-head"><div class="step-num">2</div><h2>アップする前に「秘密ファイル」を守る設定</h2></div>
     <p class="step-lead">⚠️ ここが一番大事なステップです。パスワードやAPIキーなどの<strong>秘密の情報を、うっかりネットに公開しないため</strong>の準備をします。</p>
 
     <div class="note danger">
@@ -352,7 +327,7 @@ build/
 
   <!-- STEP 4 -->
   <section class="step" id="s4">
-    <div class="step-head"><div class="step-num">4</div><h2>GitHub に空っぽの保管場所を作る</h2></div>
+    <div class="step-head"><div class="step-num">3</div><h2>GitHub に空っぽの保管場所を作る</h2></div>
     <p class="step-lead">アップ先となる「リポジトリ（repository＝保管場所）」を GitHub 上に用意します。</p>
 
     <h3>手順</h3>
@@ -376,7 +351,7 @@ build/
 
   <!-- STEP 5 -->
   <section class="step" id="s5">
-    <div class="step-head"><div class="step-num">5</div><h2>システムを GitHub にアップする</h2></div>
+    <div class="step-head"><div class="step-num">4</div><h2>システムを GitHub にアップする</h2></div>
     <p class="step-lead">いよいよ、自分のパソコンのシステムをネット上の保管場所に送ります。</p>
 
     <h3>ターミナルでシステムのフォルダに移動</h3>
@@ -421,7 +396,7 @@ git push -u origin main</div>
 
   <!-- STEP 6 -->
   <section class="step" id="s6">
-    <div class="step-head"><div class="step-num">6</div><h2>仲間を招待する</h2></div>
+    <div class="step-head"><div class="step-num">5</div><h2>仲間を招待する</h2></div>
     <p class="step-lead">これで他のメンバーも、このシステムを見たり編集したりできるようになります。</p>
 
     <h3>手順</h3>
@@ -441,7 +416,7 @@ git push -u origin main</div>
 
   <!-- STEP 7 -->
   <section class="step" id="s7">
-    <div class="step-head"><div class="step-num">7</div><h2>仲間が自分のパソコンに取り込む</h2></div>
+    <div class="step-head"><div class="step-num">6</div><h2>仲間が自分のパソコンに取り込む</h2></div>
     <p class="step-lead">👉 ここは「あとから参加するメンバー」全員がやる作業です。GitHub にあるシステムを、自分のパソコンにコピー（クローン）します。</p>
 
     <h3>手順</h3>
@@ -476,7 +451,7 @@ cd △△</div>
 
   <!-- STEP 8 -->
   <section class="step" id="s8">
-    <div class="step-head"><div class="step-num">8</div><h2>用語集 &amp; よくあるトラブル</h2></div>
+    <div class="step-head"><div class="step-num">7</div><h2>用語集 &amp; よくあるトラブル</h2></div>
 
     <h3>知っておくと安心な用語</h3>
     <dl class="glossary">
