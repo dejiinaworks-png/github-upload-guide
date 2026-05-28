@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitHubアップロード手順書｜はじめての共同開発</title>
+<style>
+  :root{
+    --ink:#1f2328;
+    --sub:#57606a;
+    --line:#e4e7eb;
+    --bg:#ffffff;
+    --soft:#f7f8fa;
+    --accent:#2563eb;
+    --accent-soft:#eff5ff;
+    --green:#16a34a;
+    --green-soft:#edfaef;
+    --amber:#b45309;
+    --amber-soft:#fff7e6;
+    --red:#dc2626;
+    --red-soft:#fdeced;
+    --code-bg:#0f172a;
+    --code-ink:#e2e8f0;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic","Meiryo",sans-serif;
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.85;
+    font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:860px;margin:0 auto;padding:0 24px 120px;}
+
+  /* ===== Header ===== */
+  header.hero{
+    padding:64px 24px 48px;
+    text-align:center;
+    border-bottom:1px solid var(--line);
+    background:linear-gradient(180deg,#fbfcfe 0%,#ffffff 100%);
+  }
+  header.hero .badge{
+    display:inline-block;
+    font-size:13px;
+    letter-spacing:.08em;
+    color:var(--accent);
+    background:var(--accent-soft);
+    padding:6px 14px;
+    border-radius:999px;
+    font-weight:700;
+    margin-bottom:20px;
+  }
+  header.hero h1{
+    font-size:32px;
+    margin:0 0 14px;
+    letter-spacing:-.01em;
+    line-height:1.4;
+  }
+  header.hero p{
+    color:var(--sub);
+    margin:0 auto;
+    max-width:620px;
+    font-size:16px;
+  }
+
+  /* ===== Intro callout ===== */
+  .intro{
+    background:var(--soft);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:26px 28px;
+    margin:40px 0;
+  }
+  .intro h2{margin:0 0 10px;font-size:18px;}
+  .intro p{margin:0;color:var(--sub);}
+  .intro .who{
+    display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;
+  }
+  .intro .who span{
+    font-size:13px;background:#fff;border:1px solid var(--line);
+    border-radius:999px;padding:6px 12px;color:var(--ink);
+  }
+
+  /* ===== TOC ===== */
+  .toc{
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:24px 28px;
+    margin:36px 0 56px;
+  }
+  .toc h2{font-size:15px;color:var(--sub);margin:0 0 14px;letter-spacing:.04em;}
+  .toc ol{margin:0;padding-left:0;list-style:none;counter-reset:toc;}
+  .toc li{counter-increment:toc;margin:0;}
+  .toc a{
+    display:flex;align-items:center;gap:14px;
+    text-decoration:none;color:var(--ink);
+    padding:11px 8px;border-radius:10px;
+    border-bottom:1px solid #f0f2f4;
+    transition:background .15s;
+  }
+  .toc li:last-child a{border-bottom:none;}
+  .toc a:hover{background:var(--accent-soft);}
+  .toc a::before{
+    content:counter(toc);
+    flex:none;
+    width:28px;height:28px;border-radius:50%;
+    background:var(--accent);color:#fff;
+    display:grid;place-items:center;font-size:14px;font-weight:700;
+  }
+
+  /* ===== Step section ===== */
+  .step{margin:0 0 64px;scroll-margin-top:24px;}
+  .step-head{
+    display:flex;align-items:center;gap:16px;margin-bottom:8px;
+  }
+  .step-num{
+    flex:none;width:44px;height:44px;border-radius:12px;
+    background:var(--accent);color:#fff;
+    display:grid;place-items:center;font-size:20px;font-weight:800;
+  }
+  .step-head h2{font-size:23px;margin:0;letter-spacing:-.01em;}
+  .step-lead{color:var(--sub);margin:6px 0 22px;}
+
+  p{margin:14px 0;}
+  h3{font-size:17px;margin:30px 0 8px;}
+
+  /* ===== Code block ===== */
+  .code{
+    background:var(--code-bg);
+    color:var(--code-ink);
+    border-radius:12px;
+    padding:18px 20px;
+    font-family:"SF Mono",Menlo,Consolas,"Courier New",monospace;
+    font-size:14px;
+    line-height:1.7;
+    overflow-x:auto;
+    margin:16px 0;
+    position:relative;
+  }
+  .code .cmt{color:#7c8aa5;}
+  .code .label{
+    position:absolute;top:0;right:0;
+    font-size:11px;color:#94a3b8;
+    background:#1e293b;border-radius:0 12px 0 10px;
+    padding:4px 12px;letter-spacing:.05em;
+  }
+  code.inline{
+    background:#f0f2f4;border:1px solid var(--line);
+    border-radius:6px;padding:2px 7px;font-size:14px;
+    font-family:"SF Mono",Menlo,Consolas,monospace;
+    color:#be185d;
+  }
+
+  /* ===== Callouts ===== */
+  .note{
+    border-radius:12px;padding:16px 20px;margin:20px 0;
+    border:1px solid;display:flex;gap:14px;align-items:flex-start;
+  }
+  .note .ico{flex:none;font-size:20px;line-height:1.4;}
+  .note p{margin:0;}
+  .note.tip{background:var(--accent-soft);border-color:#cfe0ff;}
+  .note.good{background:var(--green-soft);border-color:#c5ecca;}
+  .note.warn{background:var(--amber-soft);border-color:#f5dca6;}
+  .note.danger{background:var(--red-soft);border-color:#f3c4c4;}
+  .note strong{display:block;margin-bottom:2px;}
+
+  /* ===== AI tip box ===== */
+  .ai{
+    border:1.5px dashed #c7d2fe;
+    background:linear-gradient(180deg,#fafbff,#f5f8ff);
+    border-radius:14px;padding:20px 22px;margin:22px 0;
+  }
+  .ai h4{margin:0 0 8px;font-size:15px;color:var(--accent);display:flex;align-items:center;gap:8px;}
+  .ai p{margin:0;color:var(--ink);}
+  .ai .say{
+    background:#fff;border:1px solid var(--line);border-radius:10px;
+    padding:12px 16px;margin-top:12px;font-style:normal;color:#1e293b;
+  }
+
+  /* ===== Checklist ===== */
+  ul.check{list-style:none;padding:0;margin:16px 0;}
+  ul.check li{
+    padding:10px 0 10px 34px;position:relative;border-bottom:1px solid #f0f2f4;
+  }
+  ul.check li::before{
+    content:"✓";position:absolute;left:0;top:9px;
+    width:22px;height:22px;border-radius:50%;
+    background:var(--green-soft);color:var(--green);
+    display:grid;place-items:center;font-size:13px;font-weight:800;
+  }
+
+  /* ===== Table ===== */
+  table{width:100%;border-collapse:collapse;margin:18px 0;font-size:15px;}
+  th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);}
+  th{background:var(--soft);font-size:13px;color:var(--sub);letter-spacing:.03em;}
+
+  /* ===== divider ===== */
+  .div{height:1px;background:var(--line);margin:56px 0;border:0;}
+
+  /* ===== Glossary ===== */
+  .glossary dt{font-weight:700;margin-top:16px;}
+  .glossary dd{margin:4px 0 0;color:var(--sub);}
+
+  footer{
+    text-align:center;color:#9aa1a9;font-size:13px;
+    padding:40px 24px;border-top:1px solid var(--line);
+  }
+  @media(max-width:600px){
+    header.hero h1{font-size:25px;}
+    .step-head h2{font-size:20px;}
+    .wrap{padding:0 16px 80px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <span class="badge">はじめての共同開発</span>
+  <h1>GitHub アップロード手順書</h1>
+  <p>あなたのパソコンの中にあるシステムを GitHub に上げて、<br>仲間みんなで一緒に開発できるようにするまでの完全ガイドです。</p>
+</header>
+
+<div class="wrap">
+
+  <div class="intro">
+    <h2>📌 このマニュアルについて</h2>
+    <p>「自分のパソコンの中だけで作ったシステム」を、<strong>GitHub というネット上の保管場所</strong>にアップして、他のメンバーも開発に参加できる状態にします。専門用語はそのつど説明するので、Git をさわったことがなくても大丈夫です。</p>
+    <div class="who">
+      <span>👤 全員プログラミング初心者</span>
+      <span>🤖 Claude Code / Codex で開発</span>
+      <span>👥 2〜3人のチーム</span>
+    </div>
+  </div>
+
+  <div class="note tip">
+    <span class="ico">💡</span>
+    <p><strong>うれしいお知らせ</strong>このマニュアルのコマンド入力は、ほとんど <strong>Claude Code や Codex に「やって」とお願いするだけ</strong>でも進められます。ただし「何が起きているか」を理解しておくとトラブルに強くなるので、各ステップに説明をつけています。</p>
+  </div>
+
+  <!-- TOC -->
+  <nav class="toc">
+    <h2>この手順書のステップ</h2>
+    <ol>
+      <li><a href="#s1">GitHub のアカウントを作る</a></li>
+      <li><a href="#s2">Git をパソコンに入れる</a></li>
+      <li><a href="#s3">アップする前に「秘密ファイル」を守る設定</a></li>
+      <li><a href="#s4">GitHub に空っぽの保管場所を作る</a></li>
+      <li><a href="#s5">システムを GitHub にアップする</a></li>
+      <li><a href="#s6">仲間を招待する</a></li>
+      <li><a href="#s7">仲間が自分のパソコンに取り込む</a></li>
+      <li><a href="#s8">用語集 & よくあるトラブル</a></li>
+    </ol>
+  </nav>
+
+  <div class="note good">
+    <span class="ico">🧭</span>
+    <p><strong>誰がどれをやる？</strong><br>
+    ステップ <strong>1〜5</strong> は「システムを作った本人（アップロードする人）」が行います。<br>
+    ステップ <strong>6</strong> も同じ人。<strong>7</strong> は「あとから参加する仲間」全員が行います。</p>
+  </div>
+
+  <hr class="div">
+
+  <!-- STEP 1 -->
+  <section class="step" id="s1">
+    <div class="step-head"><div class="step-num">1</div><h2>GitHub のアカウントを作る</h2></div>
+    <p class="step-lead">GitHub（ギットハブ）は、プログラムをネット上で保管・共有できる無料のサービスです。まずは全員がアカウントを持ちましょう。</p>
+
+    <h3>手順</h3>
+    <ul class="check">
+      <li><strong>https://github.com</strong> を開く</li>
+      <li>「Sign up（サインアップ）」をクリック</li>
+      <li>メールアドレス・パスワード・ユーザー名を入力して登録</li>
+      <li>届いたメールの確認コードを入力して完了</li>
+    </ul>
+
+    <div class="note tip">
+      <span class="ico">📝</span>
+      <p><strong>決めたユーザー名はメモしておく</strong>あとで仲間を招待するときに、お互いの GitHub ユーザー名が必要になります。チームの全員ぶん共有しておきましょう。</p>
+    </div>
+
+    <div class="note good">
+      <span class="ico">💰</span>
+      <p><strong>料金は無料でOK</strong>個人利用なら、非公開（Private）の保管場所も無料で作れます。最初から課金は不要です。</p>
+    </div>
+  </section>
+
+  <!-- STEP 2 -->
+  <section class="step" id="s2">
+    <div class="step-head"><div class="step-num">2</div><h2>Git をパソコンに入れる</h2></div>
+    <p class="step-lead">Git（ギット）は、ファイルの変更履歴を記録する道具です。GitHub に上げるにはこの Git が必要です。</p>
+
+    <h3>Mac の場合</h3>
+    <p>多くの Mac には最初から入っています。確認するには「ターミナル」アプリを開いて、次を入力します。</p>
+    <div class="code"><span class="label">ターミナル</span>git --version</div>
+    <p><code class="inline">git version 2.xx.x</code> のように表示されればOKです。「インストールしますか？」と聞かれたら、案内に従って入れてください。</p>
+
+    <h3>Windows の場合</h3>
+    <ul class="check">
+      <li><strong>https://git-scm.com/download/win</strong> を開く</li>
+      <li>ダウンロードされたファイルを実行</li>
+      <li>設定は基本そのまま「Next」を押し続けてOK</li>
+    </ul>
+
+    <div class="ai">
+      <h4>🤖 Claude Code / Codex に頼むなら</h4>
+      <p>ターミナルの操作が不安なら、AIにこう聞けば確認・案内してくれます。</p>
+      <div class="say">「Gitが入っているか確認したいです。確認コマンドを教えて、入っていなければインストール方法も教えてください。」</div>
+    </div>
+  </section>
+
+  <!-- STEP 3 -->
+  <section class="step" id="s3">
+    <div class="step-head"><div class="step-num">3</div><h2>アップする前に「秘密ファイル」を守る設定</h2></div>
+    <p class="step-lead">⚠️ ここが一番大事なステップです。パスワードやAPIキーなどの<strong>秘密の情報を、うっかりネットに公開しないため</strong>の準備をします。</p>
+
+    <div class="note danger">
+      <span class="ico">🚨</span>
+      <p><strong>なぜ必要？</strong>GitHub に上げたファイルは、設定によっては世界中から見えてしまいます。<code class="inline">.env</code> などに書かれた<strong>パスワードやAPIキーが漏れると、悪用されて高額請求などの被害</strong>につながります。先に「上げないファイル」を指定しておきましょう。</p>
+    </div>
+
+    <h3>やること：「.gitignore」というファイルを作る</h3>
+    <p>システムのフォルダの中に <code class="inline">.gitignore</code> という名前のファイルを作り、「アップしたくないもの」を書いておきます。これに書いたファイルは GitHub に上がりません。</p>
+
+    <div class="code"><span class="label">.gitignore の中身（例）</span><span class="cmt"># パスワードやAPIキーなどの秘密情報</span>
+.env
+.env.local
+
+<span class="cmt"># 自動で作られる重いフォルダ（上げる必要なし）</span>
+node_modules/
+__pycache__/
+dist/
+build/
+
+<span class="cmt"># パソコンが勝手に作るゴミファイル</span>
+.DS_Store
+*.log</div>
+
+    <div class="ai">
+      <h4>🤖 これこそAIにお任せ</h4>
+      <p>自分のシステムに合った <code class="inline">.gitignore</code> は、AIが一発で作ってくれます。</p>
+      <div class="say">「このプロジェクトをGitHubに上げます。秘密情報や不要ファイルを除外する .gitignore を、このフォルダの中身に合わせて作ってください。」</div>
+    </div>
+
+    <div class="note warn">
+      <span class="ico">🔑</span>
+      <p><strong>秘密情報の共有方法</strong><code class="inline">.env</code> は GitHub に上げないので、仲間には<strong>別の安全な方法</strong>（パスワード管理アプリ、暗号化メモ等）で渡します。チャットやメールに直書きするのは避けましょう。</p>
+    </div>
+  </section>
+
+  <!-- STEP 4 -->
+  <section class="step" id="s4">
+    <div class="step-head"><div class="step-num">4</div><h2>GitHub に空っぽの保管場所を作る</h2></div>
+    <p class="step-lead">アップ先となる「リポジトリ（repository＝保管場所）」を GitHub 上に用意します。</p>
+
+    <h3>手順</h3>
+    <ul class="check">
+      <li>GitHub にログインし、右上の <strong>「+」→「New repository」</strong> をクリック</li>
+      <li><strong>Repository name</strong>：プロジェクト名を入力（例：<code class="inline">legal-tool</code>）</li>
+      <li><strong>Private を選ぶ</strong>（← 仲間だけが見られる非公開設定。最初はこれ推奨）</li>
+      <li>下の「Add a README」などの<strong>チェックは全部オフのまま</strong>でOK</li>
+      <li><strong>「Create repository」</strong> をクリック</li>
+    </ul>
+
+    <div class="note tip">
+      <span class="ico">🔒</span>
+      <p><strong>Public と Private の違い</strong><br>
+      <strong>Private（非公開）</strong>＝招待した人だけ見られる。仕事のシステムはこちら。<br>
+      <strong>Public（公開）</strong>＝世界中の誰でも見られる。今回は選ばないでください。</p>
+    </div>
+
+    <p>作成後の画面に表示される <code class="inline">https://github.com/〇〇/△△.git</code> という<strong>URLをコピー</strong>しておきます。次のステップで使います。</p>
+  </section>
+
+  <!-- STEP 5 -->
+  <section class="step" id="s5">
+    <div class="step-head"><div class="step-num">5</div><h2>システムを GitHub にアップする</h2></div>
+    <p class="step-lead">いよいよ、自分のパソコンのシステムをネット上の保管場所に送ります。</p>
+
+    <h3>ターミナルでシステムのフォルダに移動</h3>
+    <div class="code"><span class="label">ターミナル</span><span class="cmt"># 「cd 」と打ったあと、フォルダをドラッグ＆ドロップすると楽です</span>
+cd システムのフォルダの場所</div>
+
+    <h3>順番にコマンドを実行</h3>
+    <div class="code"><span class="label">ターミナル</span><span class="cmt"># ① このフォルダをGitで管理し始める</span>
+git init
+
+<span class="cmt"># ② 今のファイルを「記録する対象」に全部入れる</span>
+git add .
+
+<span class="cmt"># ③ 「初回コミット」という名札をつけて記録する</span>
+git commit -m "初回コミット：既存システムの取り込み"
+
+<span class="cmt"># ④ アップ先のURLを登録する（ステップ4でコピーしたURL）</span>
+git remote add origin https://github.com/〇〇/△△.git
+
+<span class="cmt"># ⑤ メインの置き場の名前をmainに統一</span>
+git branch -M main
+
+<span class="cmt"># ⑥ いよいよGitHubへ送信！</span>
+git push -u origin main</div>
+
+    <div class="note good">
+      <span class="ico">🎉</span>
+      <p><strong>完了！</strong>GitHub のリポジトリのページを再読み込みすると、自分のファイルが一覧に並んでいるはずです。これでネット上に保管できました。</p>
+    </div>
+
+    <div class="ai">
+      <h4>🤖 ぜんぶAIに任せてもOK</h4>
+      <p>コマンドを1つずつ打つのが不安なら、Claude Code / Codex にこう頼めば、確認しながら進めてくれます。</p>
+      <div class="say">「このフォルダを、GitHubのリポジトリ（URL：https://github.com/〇〇/△△.git）に初めてアップしたいです。git init から push まで、順番に実行してください。途中で確認が必要なところは教えてください。」</div>
+    </div>
+
+    <div class="note warn">
+      <span class="ico">🔐</span>
+      <p><strong>パスワードを聞かれたら</strong>push のときにログインを求められます。GitHub では通常パスワードではなく「<strong>パーソナルアクセストークン</strong>」が必要です。求められたら慌てず、AIに「push でトークンを求められました。作り方を教えて」と聞けば案内してくれます。</p>
+    </div>
+  </section>
+
+  <!-- STEP 6 -->
+  <section class="step" id="s6">
+    <div class="step-head"><div class="step-num">6</div><h2>仲間を招待する</h2></div>
+    <p class="step-lead">これで他のメンバーも、このシステムを見たり編集したりできるようになります。</p>
+
+    <h3>手順</h3>
+    <ul class="check">
+      <li>リポジトリのページで <strong>「Settings（設定）」</strong> タブをクリック</li>
+      <li>左メニューの <strong>「Collaborators（共同作業者）」</strong> をクリック</li>
+      <li><strong>「Add people」</strong> をクリック</li>
+      <li>仲間の <strong>GitHubユーザー名</strong>（ステップ1でメモしたもの）を入力して招待</li>
+      <li>招待された人にメールが届くので、本人が「Accept（承認）」する</li>
+    </ul>
+
+    <div class="note tip">
+      <span class="ico">👥</span>
+      <p><strong>2〜3人ならこれで十分</strong>もっと人数が増えたり、会社として管理したくなったら「Organization（組織）」を作る方法もありますが、今の規模ならこのまま個人リポジトリへの招待でOKです。</p>
+    </div>
+  </section>
+
+  <!-- STEP 7 -->
+  <section class="step" id="s7">
+    <div class="step-head"><div class="step-num">7</div><h2>仲間が自分のパソコンに取り込む</h2></div>
+    <p class="step-lead">👉 ここは「あとから参加するメンバー」全員がやる作業です。GitHub にあるシステムを、自分のパソコンにコピー（クローン）します。</p>
+
+    <h3>手順</h3>
+    <div class="code"><span class="label">ターミナル</span><span class="cmt"># システムを置きたい場所に移動してから実行</span>
+git clone https://github.com/〇〇/△△.git
+
+<span class="cmt"># できたフォルダの中に入る</span>
+cd △△</div>
+
+    <p>これで、GitHub にあるシステム一式が手元にそろいました。あとは Claude Code / Codex をこのフォルダで開けば、すぐ開発を始められます。</p>
+
+    <div class="note danger">
+      <span class="ico">🔑</span>
+      <p><strong>.env を忘れずに</strong>秘密情報の <code class="inline">.env</code> は GitHub に上げていないので、クローンしただけでは入っていません。システムを作った本人から<strong>安全な方法で受け取り</strong>、フォルダの中に置いてください。これがないとシステムが動かないことがあります。</p>
+    </div>
+
+    <div class="ai">
+      <h4>🤖 開発中の基本サイクル（おまけ）</h4>
+      <p>共同開発で大事なのは「いきなり本体をいじらない」こと。Claude Code / Codex に下記をお願いするのが基本リズムです。</p>
+      <div class="say">「作業を始める前に、最新の状態を取り込みたい（git pull）」<br><br>
+      作業が終わったら →<br>
+      「変更内容を保存して、GitHubに上げてください（add → commit → push）」</div>
+    </div>
+
+    <div class="note warn">
+      <span class="ico">⚠️</span>
+      <p><strong>同じファイルを同時に編集しない</strong>2人が同じファイルを別々に変更すると、あとで「どっちを残す？」という衝突（コンフリクト）が起きます。慣れるまでは「今これ触ってるよ」と声をかけ合うと安全です。</p>
+    </div>
+  </section>
+
+  <hr class="div">
+
+  <!-- STEP 8 -->
+  <section class="step" id="s8">
+    <div class="step-head"><div class="step-num">8</div><h2>用語集 &amp; よくあるトラブル</h2></div>
+
+    <h3>知っておくと安心な用語</h3>
+    <dl class="glossary">
+      <dt>リポジトリ（repository / repo）</dt>
+      <dd>システム一式を入れておく「保管場所」。GitHub上に1プロジェクト＝1個作ります。</dd>
+      <dt>クローン（clone）</dt>
+      <dd>GitHubにある保管場所を、自分のパソコンに丸ごとコピーすること。</dd>
+      <dt>コミット（commit）</dt>
+      <dd>変更内容に「ここまでやった」という名札をつけて記録すること。セーブポイントのイメージ。</dd>
+      <dt>プッシュ（push）</dt>
+      <dd>手元の記録（コミット）を GitHub に送ること。「アップロード」に近い。</dd>
+      <dt>プル（pull）</dt>
+      <dd>GitHub上の最新版を手元に取り込むこと。push の逆。</dd>
+      <dt>ブランチ（branch）</dt>
+      <dd>本体（main）とは別の「作業用の枝」。慣れてきたら、ここで作業して安全に合流させます。</dd>
+    </dl>
+
+    <h3>よくあるトラブルと対処</h3>
+    <table>
+      <tr><th>こんなとき</th><th>どうする</th></tr>
+      <tr><td>push でログイン/トークンを求められた</td><td>AIに「トークンの作り方を教えて」と聞く。GitHubの Settings → Developer settings から作成。</td></tr>
+      <tr><td>秘密情報を間違えて上げてしまった</td><td>すぐにそのパスワード/キーを<strong>無効化して作り直す</strong>。消すだけでは履歴に残るので要注意。AIに相談を。</td></tr>
+      <tr><td>「コンフリクト（衝突）」と出た</td><td>あわてず作業を止めて、AIに「コンフリクトが出ました。解決を手伝って」と頼む。</td></tr>
+      <tr><td>どのコマンドか分からなくなった</td><td>Claude Code / Codex に「今やりたいこと」を日本語で伝えれば、正しいコマンドを出してくれる。</td></tr>
+    </table>
+
+    <div class="note good">
+      <span class="ico">🤝</span>
+      <p><strong>最後にいちばん大切なこと</strong>全員初心者でも、Claude Code / Codex が隣にいれば大丈夫です。<strong>「やりたいことを日本語で伝える」</strong>だけで、コマンドも手順も教えてくれます。困ったら、まず素直に聞いてみましょう。</p>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  GitHub アップロード手順書 ｜ はじめての共同開発ガイド
+</footer>
+
+</body>
+</html>
