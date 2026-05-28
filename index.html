@@ -321,7 +321,25 @@ build/
 
     <div class="note warn">
       <span class="ico">🔑</span>
-      <p><strong>秘密情報の共有方法</strong><code class="inline">.env</code> は GitHub に上げないので、仲間には<strong>別の安全な方法</strong>（パスワード管理アプリ、暗号化メモ等）で渡します。チャットやメールに直書きするのは避けましょう。</p>
+      <p><strong>秘密情報の共有方法</strong>本物のキーが入った <code class="inline">.env</code> は GitHub に上げないので、仲間には<strong>別の安全な方法</strong>（パスワード管理アプリ、暗号化メモ等）で渡します。チャットやメールに直書きするのは避けましょう。</p>
+    </div>
+
+    <h3>代わりに「.env.example」を上げる（おすすめ）</h3>
+    <p><code class="inline">.env</code> 本体は上げませんが、<strong>「どんな項目が必要か」だけを書いた見本ファイル</strong> <code class="inline">.env.example</code> を作って GitHub に上げておくと、仲間が「何を用意すればいいか」を一目で分かります。<strong>中身（値）は空っぽ</strong>にしておくのがポイントです。</p>
+
+    <div class="code"><span class="label">.env.example の中身（例：値は空にする）</span><span class="cmt"># APIキーなどの「項目名」だけを書く。実際の値は書かない</span>
+OPENAI_API_KEY=
+DATABASE_URL=
+SECRET_KEY=</div>
+
+    <div class="note good">
+      <span class="ico">✅</span>
+      <p><strong>使い方の流れ</strong>仲間はクローン後、<code class="inline">.env.example</code> をコピーして <code class="inline">.env</code> という名前に変え、本物の値を埋めて使います。見本があるので「何の項目が要るのか」で迷いません。</p>
+    </div>
+
+    <div class="note danger">
+      <span class="ico">⚠️</span>
+      <p><strong>絶対に間違えないこと</strong><code class="inline">.env.example</code>（見本・空）→ 上げる。<code class="inline">.env</code>（本物のキー入り）→ <strong>上げない</strong>。<code class="inline">.gitignore</code> に <code class="inline">.env</code> が入っていれば、本体は自動で除外されるので安心です。</p>
     </div>
   </section>
 
